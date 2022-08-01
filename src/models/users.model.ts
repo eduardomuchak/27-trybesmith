@@ -15,6 +15,14 @@ class UsersModel {
     return rows as User[];
   }
 
+  public async getById(id: number): Promise<User> {
+    const result = await this.connection
+      .execute('SELECT * FROM books WHERE id=?', [id]);
+    const [rows] = result;
+    const [book] = rows as User[];
+    return book;
+  }
+
   public async create(user: User): Promise<User> {
     const { username, classe, level, password } = user;
     const result = await this.connection.execute<ResultSetHeader>(

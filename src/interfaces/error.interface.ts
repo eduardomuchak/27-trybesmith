@@ -1,6 +1,6 @@
 interface Error {
   message: string;
-  status: number;
+  name: number;
 }
 
 export default Error;

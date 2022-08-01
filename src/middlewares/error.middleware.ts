@@ -1,9 +1,16 @@
-import { Request, Response, NextFunction } from 'express';
-import Error from '../interfaces/error.interface';
+import { ErrorRequestHandler } from 'express';
 
-const errorMiddleware = (err: Error, _req: Request, res: Response, _next: NextFunction) => {
-  const { message, status } = err;
-  return res.status(status).json({ message });
+const errorHandlerMiddleware: ErrorRequestHandler = async (err, _req, res, _next) => {
+  const { code, message, name } = err;
+
+  if (name === 'ValidationError') {
+    return res.status(400).json({ message: err.message });
+  }
+  if (name === 'UnauthorizedError') {
+    return res.status(401).json({ message: err.message });
+  }
+
+  res.status(code || 500).json({ message });
 };
 
-export default errorMiddleware;
+export default errorHandlerMiddleware;

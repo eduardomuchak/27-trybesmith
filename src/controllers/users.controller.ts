@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import UsersService from '../services/users.service';
+import validateUser from '../services/login.service';
 import getToken from '../services/jwt.service';
 
 class UsersController {
@@ -16,6 +17,12 @@ class UsersController {
     const userCreated = await this.usersService.create(user);
     const token = getToken({ id: userCreated.id });
     res.status(201).json({ token });
+  };
+
+  public login = async (req: Request, res: Response) => {
+    const validUser = validateUser(req.body);
+    const token = await this.usersService.login(validUser);
+    res.status(200).json({ token });
   };
 }
 
