@@ -1,8 +1,23 @@
+import Joi from 'joi';
 import connection from '../models/connection';
 import UsersModel from '../models/users.model';
 import User from '../interfaces/users.interface';
 import getToken from './jwt.service';
 
+function validateUser(data: User) {
+  const userSchema = Joi.object({
+    username: Joi.string().min(3).required(),
+    classe: Joi.string().min(3).required(),
+    level: Joi.number().min(1).required(),
+    password: Joi.string().min(8).required(),
+  });
+  const { error } = userSchema.validate(data);
+  if (error) {
+    error.name = 'ValidationError';
+    throw error;
+  }
+  return data;
+}
 class ProductsService {
   public model: UsersModel;
 
@@ -38,6 +53,7 @@ class ProductsService {
   }
 
   public async create(user: User): Promise<User> {
+    validateUser(user);
     return this.model.create(user);
   }
 }
