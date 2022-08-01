@@ -1,7 +1,6 @@
 import connection from '../models/connection';
 import UsersModel from '../models/users.model';
 import User from '../interfaces/users.interface';
-// import Error from '../interfaces/error.interface';
 import getToken from './jwt.service';
 
 class ProductsService {

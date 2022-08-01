@@ -4,6 +4,9 @@ const errorHandlerMiddleware: ErrorRequestHandler = async (err, _req, res, _next
   const { code, message, name } = err;
 
   if (name === 'ValidationError') {
+    if (message.includes('must')) {
+      return res.status(422).json({ message });
+    }
     return res.status(400).json({ message: err.message });
   }
   if (name === 'UnauthorizedError') {

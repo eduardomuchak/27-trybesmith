@@ -1,6 +1,20 @@
+import Joi from 'joi';
 import connection from '../models/connection';
 import ProductsModel from '../models/products.model';
 import Product from '../interfaces/products.interface';
+
+function validateProduct(data: Product) {
+  const productSchema = Joi.object({
+    name: Joi.string().min(3).required(),
+    amount: Joi.string().min(3).required(),
+  });
+  const { error } = productSchema.validate(data);
+  if (error) {
+    error.name = 'ValidationError';
+    throw error;
+  }
+  return data;
+}
 
 class ProductsService {
   public model: ProductsModel;
@@ -15,6 +29,7 @@ class ProductsService {
   }
 
   public async create(product: Product): Promise<Product> {
+    validateProduct(product);
     return this.model.create(product);
   }
 }
