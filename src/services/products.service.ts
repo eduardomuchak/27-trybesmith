@@ -32,6 +32,10 @@ class ProductsService {
     validateProduct(product);
     return this.model.create(product);
   }
+
+  public async update(orderId: number | undefined, productId: number): Promise<void | null> {
+    return this.model.update(orderId, productId);
+  }
 }
 
 export default ProductsService;

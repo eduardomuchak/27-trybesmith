@@ -2,7 +2,7 @@ import Joi from 'joi';
 import connection from '../models/connection';
 import UsersModel from '../models/users.model';
 import User from '../interfaces/users.interface';
-import getToken from './jwt.service';
+import { getToken } from './jwt.service';
 
 function validateUser(data: User) {
   const userSchema = Joi.object({

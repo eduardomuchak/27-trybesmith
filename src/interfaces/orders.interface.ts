@@ -1,6 +1,8 @@
-interface Order {
+export interface Order {
   id?: number;
   userId: number;
 }
-
-export default Order;
+export interface UserAndProductsIds {
+  userId: number;
+  productsIds: number[];
+}

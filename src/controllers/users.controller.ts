@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import UsersService from '../services/users.service';
 import validateUser from '../services/login.service';
-import getToken from '../services/jwt.service';
+import { getToken } from '../services/jwt.service';
 
 class UsersController {
   constructor(private usersService = new UsersService()) { }

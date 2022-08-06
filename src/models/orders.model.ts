@@ -1,5 +1,5 @@
-import { Pool } from 'mysql2/promise';
-import Order from '../interfaces/orders.interface';
+import { Pool, ResultSetHeader } from 'mysql2/promise';
+import { Order } from '../interfaces/orders.interface';
 
 class OrdersModel {
   public connection: Pool;
@@ -25,6 +25,18 @@ class OrdersModel {
       .execute(query);
     const [rows] = result;
     return rows as Order[];
+  }
+
+  public async create(userId: number): Promise<Order> {
+    const query = `
+    INSERT INTO Trybesmith.Orders (userId) VALUES (?);
+    `;
+    const result = await this.connection.execute<ResultSetHeader>(
+      query,
+      [userId],
+    );
+    const { insertId } = result[0];
+    return { id: insertId, userId } as Order;
   }
 }
 
