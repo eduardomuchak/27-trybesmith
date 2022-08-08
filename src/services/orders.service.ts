@@ -7,7 +7,12 @@ import ProductsModel from '../models/products.model';
 function validateOrder(data: UserAndProductsIds) {
   const orderSchema = Joi.object({
     userId: Joi.number(),
-    productsIds: Joi.array().items(Joi.number()).min(1).required(),
+    // Referencia para validações: https://stackoverflow.com/questions/48720942/node-js-joi-how-to-display-a-custom-error-messages
+    productsIds: Joi.array().items(Joi.number()).min(1).required()
+      .messages({
+        'array.base': '"productsIds" must be an array',
+        'array.min': '"productsIds" must include only numbers',
+      }),
   });
   const { error } = orderSchema.validate(data);
   if (error) {
