@@ -20,10 +20,12 @@ class OrdersController {
       res.status(401).json({ message: 'Token not found' });
     }
 
-    const data = validateToken(token);
+    const userInfo = validateToken(token);
 
-    if (data) {
-      const order = await this.ordersService.create(data.id, productsIds);
+    const userId = await this.ordersService.getUserIdByUsername(userInfo.username);
+
+    if (userInfo && userId) {
+      const order = await this.ordersService.create(userId, productsIds);
       res.status(201).json(order);
     }
   };

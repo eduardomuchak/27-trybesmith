@@ -17,10 +17,10 @@ class UsersModel {
 
   public async getById(id: number): Promise<User> {
     const result = await this.connection
-      .execute('SELECT * FROM books WHERE id=?', [id]);
+      .execute('SELECT * FROM Trybesmith.Users WHERE username=?', [id]);
     const [rows] = result;
-    const [book] = rows as User[];
-    return book;
+    const [user] = rows as User[];
+    return user;
   }
 
   public async create(user: User): Promise<User> {

@@ -47,7 +47,7 @@ class ProductsService {
     return products;
   }
 
-  public async getById(id: number): Promise<User> {
+  public async getUserById(id: number): Promise<User | null> {
     const user = await this.model.getById(id);
     return user;
   }

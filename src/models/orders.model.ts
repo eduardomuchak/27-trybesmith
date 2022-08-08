@@ -38,6 +38,25 @@ class OrdersModel {
     const { insertId } = result[0];
     return { id: insertId, userId } as Order;
   }
+
+  public async updateProducts(orderId: number | undefined, productId: number): Promise<void> {
+    const query = `
+    UPDATE Trybesmith.Products 
+    SET orderId = ? 
+    WHERE id =?;
+    `;
+    await this.connection.execute<ResultSetHeader>(query, [orderId, productId]);
+  }
+
+  public async getUserIdByUsername(username: string): Promise<number> {
+    const query = `
+    SELECT id FROM Trybesmith.Users WHERE username = ?;
+    `;
+    const result = await this.connection.execute(query, [username]);
+    const [rows] = result;
+    const [user] = rows as { id: number }[];
+    return user.id;
+  }
 }
 
 export default OrdersModel;

@@ -37,10 +37,15 @@ class OrdersService {
     const { id } = await this.model.create(userId);
 
     await Promise.all(productsIds.map(async (productId) => {
-      await this.productModel.update(id, productId);
+      await this.model.updateProducts(id, productId);
     }));
 
     return { userId, productsIds };
+  }
+
+  public async getUserIdByUsername(username: string): Promise<number> {
+    const user = await this.model.getUserIdByUsername(username);
+    return user;
   }
 }
 
