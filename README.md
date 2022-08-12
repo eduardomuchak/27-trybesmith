@@ -4,7 +4,7 @@
 
 This project consists of medieval items stored in the API format structured in the MSC (Models, Services, Controllers) layer system and written using Typescript.
 
-It is possible to perform basic operations that can be done in a database: Create (C), Read (R), Update (U), and Delete (D). The database used for the creation of this project is MySQL.
+It is possible to perform basic operations that can be done in a database: Create (C) and Read (R). The database used for the creation of this project is MySQL.
 
 #
 
@@ -23,6 +23,24 @@ It is possible to perform basic operations that can be done in a database: Creat
 - Scrum
 
 #
+## Routes:
+
+### Login
+- Make a Login with username and password (POST /login)
+
+### Products
+- List all products (GET /product)
+- Register a new product (POST /product)
+- Search an user by id (GET /product/:id)
+
+### Users
+- List all users (GET /users)
+- Register a new user (POST /users)
+- Search an category by id (GET /categories/:id)
+
+### Orders
+- List all orders (GET /orders)
+- Register a new order (POST /orders)
 
 ## How to install the application:
 
